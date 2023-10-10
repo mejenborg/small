@@ -1,0 +1,31 @@
+{
+  "name": "small",
+  "version": "0.1.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rm -r ./dist && tsc && echo \"#!/usr/bin/env node\n$(cat ./dist/cli/small.js)\" > ./dist/cli/small.js && chmod +x ./dist/cli/small.js && cp -r ./src/bin ./dist",
+    "small": "node ./dist/small.js"
+  },
+  "bin": "./dist/cli/small.js",
+  "author": "Kasper M. Sørensen <kasper@mejenborg.com>",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-sdk/client-iam": "^3.427.0",
+    "@types/js-yaml": "^4.0.6",
+    "app-root-path": "^3.1.0",
+    "aws-cdk-lib": "^2.96.2",
+    "commander": "^11.0.0",
+    "constructs": "^10.3.0",
+    "esbuild": "^0.19.4",
+    "glob": "^10.3.4",
+    "js-yaml": "^4.1.0",
+    "ts-node": "^10.9.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.3.3",
+    "prettier": "^3.0.3",
+    "typescript": "^5.1.6"
+  }
+}
