@@ -1,5 +1,5 @@
-import { BuildOptions, CompilerOptions } from './compilers/interfaces';
-export declare class Compiler {
+import { BuildOptions, CompilerOptions } from './interfaces';
+export declare class SamBuild {
     verbose: boolean;
     constructor(opts?: CompilerOptions);
     build(opts?: BuildOptions): Promise<void>;

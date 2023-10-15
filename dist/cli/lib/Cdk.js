@@ -13,6 +13,8 @@ class Cdk {
         const execOpts = { env: {} };
         if (opts?.quiet)
             args.push('-q');
+        if (opts?.output)
+            args.push('--output', opts.output);
         if (opts?.app)
             args.push('--app', '.ts' === opts.app.substring(opts.app.lastIndexOf('.'))
                 ? `"npx ts-node --prefer-ts-exts ${opts.app}"`

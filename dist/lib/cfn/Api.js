@@ -24,7 +24,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Api = void 0;
-const aws_iam_1 = require("aws-cdk-lib/aws-iam");
 const aws_sam_1 = require("aws-cdk-lib/aws-sam");
 const glob_1 = require("glob");
 const Path = __importStar(require("path"));
@@ -41,11 +40,11 @@ class Api extends aws_sam_1.CfnApi {
         this.invokePolicy = new ApiInvokePolicy_1.ApiInvokePolicy(this, `${id}InvokePolicy`);
         this.invokePolicy.roles = [this.invokeRole.ref];
         if (props?.handlers)
-            this.loadHandlers(props.handlers);
+            this.loadHandlers(props.handlers, props.defaultFunctionProps);
     }
-    async loadHandlers(pattern) {
+    async loadHandlers(pattern, defaultProps) {
         return (0, glob_1.globSync)(pattern).map(async (file) => {
-            this.addHandler(new Handler_1.Handler(this, Path.resolve(process.cwd() + '/' + file)));
+            this.addHandler(new Handler_1.Handler(this, Path.resolve(process.cwd() + '/' + file), defaultProps));
         });
     }
     async addHandler(handler) {
@@ -53,10 +52,3 @@ class Api extends aws_sam_1.CfnApi {
     }
 }
 exports.Api = Api;
-/* Type guards */
-function isCfnRole(val) {
-    return ('object' === typeof val &&
-        aws_iam_1.CfnRole.isCfnElement(val) &&
-        aws_iam_1.CfnRole.isCfnResource(val) &&
-        undefined !== val.attrRoleId);
-}

@@ -23,14 +23,18 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.loadConfig = exports.defaults = void 0;
-exports.defaults = {
-    samOutput: '.small/sam',
-    cdkOutput: '.small/cdk',
-    dockerOutput: '.small',
+exports.RdsSubnetGroup = void 0;
+const cdk = __importStar(require("aws-cdk-lib"));
+const _defaults = {
+    description: `Subnet Group to provide high availability for RDS`,
 };
-async function loadConfig() {
-    let config = await Promise.resolve(`${process.cwd() + '/small.config.js'}`).then(s => __importStar(require(s)));
-    return { ...exports.defaults, ...config.default };
+class RdsSubnetGroup extends cdk.aws_rds.SubnetGroup {
+    constructor(scope, id, props) {
+        props = { ..._defaults, ...props };
+        props.vpcSubnets = {
+            subnets: [...props.vpc.isolatedSubnets, ...props.vpc.privateSubnets],
+        };
+        super(scope, id, props);
+    }
 }
-exports.loadConfig = loadConfig;
+exports.RdsSubnetGroup = RdsSubnetGroup;

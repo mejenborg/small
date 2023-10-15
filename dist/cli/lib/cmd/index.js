@@ -16,4 +16,5 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./CdkCmd"), exports);
 __exportStar(require("./Cmd"), exports);
+__exportStar(require("./Docker"), exports);
 __exportStar(require("./SamCmd"), exports);

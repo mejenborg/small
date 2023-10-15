@@ -8,11 +8,11 @@ type MutableApiEventProperty = {
 };
 
 export class Handler extends CfnFunction {
-    constructor(scope: Construct, file: string) {
+    constructor(scope: Construct, file: string, defaultProps?: CfnFunctionProps) {
         const api = isApi(scope) ? (scope as Api) : undefined;
         scope = isApi(scope) ? scope.stack : scope;
 
-        let { properties } = getHandlerContents(file);
+        let properties = { ...defaultProps, ...getHandlerContents(file).properties };
 
         // Get relative path
         file = Path.isAbsolute(file) ? Path.relative(process.cwd(), file) : file;
@@ -50,9 +50,9 @@ export class Handler extends CfnFunction {
     }
 }
 
-function capitalize(val: string): string {
-    return val.substring(0, 1).toUpperCase() + val.substring(1);
-}
+// function capitalize(val: string): string {
+//     return val.substring(0, 1).toUpperCase() + val.substring(1);
+// }
 // function capitalizeMetadataKeys(obj: object): Record<string, string | string[] | number | boolean> {
 //     let res = {} as Record<string, string | number | boolean>;
 

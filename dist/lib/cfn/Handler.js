@@ -7,10 +7,10 @@ exports.Handler = void 0;
 const aws_sam_1 = require("aws-cdk-lib/aws-sam");
 const path_1 = __importDefault(require("path"));
 class Handler extends aws_sam_1.CfnFunction {
-    constructor(scope, file) {
+    constructor(scope, file, defaultProps) {
         const api = isApi(scope) ? scope : undefined;
         scope = isApi(scope) ? scope.stack : scope;
-        let { properties } = getHandlerContents(file);
+        let properties = { ...defaultProps, ...getHandlerContents(file).properties };
         // Get relative path
         file = path_1.default.isAbsolute(file) ? path_1.default.relative(process.cwd(), file) : file;
         const logicalId = getLogicalId(file);

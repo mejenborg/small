@@ -23,14 +23,33 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.loadConfig = exports.defaults = void 0;
-exports.defaults = {
-    samOutput: '.small/sam',
-    cdkOutput: '.small/cdk',
-    dockerOutput: '.small',
+exports.RdsVpc = void 0;
+const cdk = __importStar(require("aws-cdk-lib"));
+const RdsSecurityGroup_1 = require("./RdsSecurityGroup");
+const RdsSubnetGroup_1 = require("./RdsSubnetGroup");
+const defaults = {
+    cidr: '172.31.0.0/16',
+    enableDnsHostnames: true,
+    enableDnsSupport: true,
+    subnetConfiguration: [
+        {
+            cidrMask: 24,
+            name: 'rds',
+            subnetType: cdk.aws_ec2.SubnetType.PRIVATE_ISOLATED,
+        },
+    ],
 };
-async function loadConfig() {
-    let config = await Promise.resolve(`${process.cwd() + '/small.config.js'}`).then(s => __importStar(require(s)));
-    return { ...exports.defaults, ...config.default };
+class RdsVpc extends cdk.aws_ec2.Vpc {
+    constructor(scope, id, props) {
+        props = { ...defaults, ...props };
+        super(scope, id, props);
+        this.port = props.port;
+        this.securityGroup = new RdsSecurityGroup_1.RdsSecurityGroup(scope, `RdsSecurityGroup`, {
+            vpc: this,
+        });
+        this.subnetGroup = new RdsSubnetGroup_1.RdsSubnetGroup(scope, `RdsSubnetGroup`, {
+            vpc: this,
+        });
+    }
 }
-exports.loadConfig = loadConfig;
+exports.RdsVpc = RdsVpc;

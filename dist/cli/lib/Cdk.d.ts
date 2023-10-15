@@ -8,6 +8,7 @@ export interface SynthOptions {
     handlers?: string;
     quiet?: boolean;
     env?: NodeJS.ProcessEnv;
+    output?: string;
 }
 export declare class Cdk {
     verbose: boolean;

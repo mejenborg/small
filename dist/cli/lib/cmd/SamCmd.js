@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SamBuildCmd = exports.SamCmd = void 0;
+exports.SamLocalStartApiCmd = exports.SamLocalCmd = exports.SamBuildCmd = exports.SamCmd = void 0;
 const Cmd_1 = require("./Cmd");
 class SamCmd extends Cmd_1.Cmd {
     constructor(opts) {
@@ -18,3 +18,15 @@ class SamBuildCmd extends SamCmd {
     }
 }
 exports.SamBuildCmd = SamBuildCmd;
+class SamLocalCmd extends SamCmd {
+    async exec(args = [], opts) {
+        await super.exec(['local'].concat(args));
+    }
+}
+exports.SamLocalCmd = SamLocalCmd;
+class SamLocalStartApiCmd extends SamLocalCmd {
+    async exec(args = [], opts) {
+        await super.exec(['start-api'].concat(args));
+    }
+}
+exports.SamLocalStartApiCmd = SamLocalStartApiCmd;

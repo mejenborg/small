@@ -6,3 +6,9 @@ export declare class SamCmd extends Cmd {
 export declare class SamBuildCmd extends SamCmd {
     exec(args?: ReadonlyArray<string>, opts?: CmdExecOptions): Promise<void>;
 }
+export declare class SamLocalCmd extends SamCmd {
+    exec(args?: ReadonlyArray<string>, opts?: CmdExecOptions): Promise<void>;
+}
+export declare class SamLocalStartApiCmd extends SamLocalCmd {
+    exec(args?: ReadonlyArray<string>, opts?: CmdExecOptions): Promise<void>;
+}

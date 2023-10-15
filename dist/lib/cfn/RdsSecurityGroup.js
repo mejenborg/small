@@ -23,14 +23,18 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.loadConfig = exports.defaults = void 0;
-exports.defaults = {
-    samOutput: '.small/sam',
-    cdkOutput: '.small/cdk',
-    dockerOutput: '.small',
+exports.RdsSecurityGroup = void 0;
+const cdk = __importStar(require("aws-cdk-lib"));
+const defaults = {
+    securityGroupName: `RdsSecurityGroup`,
+    description: `Allow RDS traffic`,
 };
-async function loadConfig() {
-    let config = await Promise.resolve(`${process.cwd() + '/small.config.js'}`).then(s => __importStar(require(s)));
-    return { ...exports.defaults, ...config.default };
+class RdsSecurityGroup extends cdk.aws_ec2.SecurityGroup {
+    constructor(scope, id, props) {
+        props = { ...defaults, ...props };
+        super(scope, id, props);
+        if (!props.port)
+            this.addIngressRule(cdk.aws_ec2.Peer.ipv4(props.vpc.vpcCidrBlock), cdk.aws_ec2.Port.tcp(props.vpc.port), 'RDS');
+    }
 }
-exports.loadConfig = loadConfig;
+exports.RdsSecurityGroup = RdsSecurityGroup;

@@ -10,6 +10,7 @@ export interface SynthOptions {
     handlers?: string;
     quiet?: boolean;
     env?: NodeJS.ProcessEnv;
+    output?: string;
 }
 
 export class Cdk {
@@ -24,6 +25,7 @@ export class Cdk {
         const execOpts: CmdExecOptions = { env: {} };
 
         if (opts?.quiet) args.push('-q');
+        if (opts?.output) args.push('--output', opts.output);
         if (opts?.app)
             args.push(
                 '--app',
