@@ -1,3 +1,3 @@
-export * from './lib/cfn/Api';
-export * from './lib/cfn/Handler';
-export * from './lib/cfn/Rds';
+export * from './cfn/Api';
+export * from './cfn/Handler';
+export * from './cfn/Rds';
