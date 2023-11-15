@@ -1,6 +1,6 @@
 import { Command, Option } from 'commander';
-import { DockerComposeCmd, DockerNetworkCreateBridgeCmd, SamLocalStartApiCmd } from './lib/cmd';
-import { loadConfig } from './lib/config';
+import { DockerComposeCmd, DockerNetworkCreateBridgeCmd, SamLocalStartApiCmd } from './_lib/cmd';
+import { loadConfig } from './_lib/config';
 
 const program = new Command();
 

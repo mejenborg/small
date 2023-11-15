@@ -21,7 +21,8 @@
     "esbuild": "^0.19.4",
     "glob": "^10.3.4",
     "js-yaml": "^4.1.0",
-    "ts-node": "^10.9.1"
+    "ts-node": "^10.9.1",
+    "winston": "^3.11.0"
   },
   "devDependencies": {
     "@types/node": "^20.3.3",

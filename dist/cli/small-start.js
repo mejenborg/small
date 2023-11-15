@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const commander_1 = require("commander");
-const cmd_1 = require("./lib/cmd");
-const config_1 = require("./lib/config");
+const cmd_1 = require("./_lib/cmd");
+const config_1 = require("./_lib/config");
 const program = new commander_1.Command();
 program.name('start');
 program.description('');
