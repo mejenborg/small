@@ -8,7 +8,7 @@ export default abstract class Builder {
         this.logger = logger;
     }
 
-    abstract build(template: string, outputDir: string): Promise<void>;
+    abstract build(template: string, outputDir: string, opts?: any): Promise<void>;
 
     prepareOutputDir(outputDir: string) {
         this.logger.info(`Preparing output directory ${outputDir}`);

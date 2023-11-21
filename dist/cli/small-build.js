@@ -50,13 +50,12 @@ command.version('0.1.0');
 command.showHelpAfterError('(add --help for additional information)');
 command.addOption(new commander_1.Option('-n, --name <name>', 'Application name.'));
 command.addOption(new commander_1.Option('-a, --cdk-app <path>', 'CDK app file. This option cannot be used with --template').default(false, `"app.[ts|js]"`));
-command.addOption(new commander_1.Option('-l, --handlers <paths...>', 'Filenames or patterns to locate handlers. These filenames are resolved relative to the directory containing the small.config file. This option cannot be used with --template'));
+command.addOption(new commander_1.Option('-H, --handlers <paths...>', 'Filenames or patterns to locate handlers. These filenames are resolved relative to the directory containing the small.config file. This option cannot be used with --template'));
 command.addOption(new commander_1.Option('-t, --template <paths>', 'AWS SAM template file. This option cannot be used with --cdk-app or --handlers')
     .default(false, `"template.[yaml|yml|json]"`)
     .conflicts(['cdkApp', 'handlers']));
-command.addOption(new commander_1.Option('-so, --sam-output <dir>', 'Directory to store build SAM artifacts. Note: This directory will be removed before starting a build.').default(application_builder_1.defaultBuildOpts.samOutput));
-command.addOption(new commander_1.Option('-co, --cdk-output <dir>', 'Directory to store CDK synth artifacts. Note: This directory will be removed before starting a build.').default(application_builder_1.defaultBuildOpts.cdkOutput));
-command.addOption(new commander_1.Option('-do, --docker-output <dir>', 'Directory to store Docker template artifacts. Note: This directory will be removed before starting a build.').default(application_builder_1.defaultBuildOpts.dockerOutput));
+command.addOption(new commander_1.Option('-s, --sam-output <dir>', 'Directory to store build SAM artifacts. Note: This directory will be removed before starting a build.').default(application_builder_1.defaultBuildOpts.samOutput));
+command.addOption(new commander_1.Option('-c, --cdk-output <dir>', 'Directory to store CDK synth artifacts. Note: This directory will be removed before starting a build.').default(application_builder_1.defaultBuildOpts.cdkOutput));
 command.addOption(new commander_1.Option('-b, --builder <builder>', 'Specify which builder to use')
     .choices(Object.values(application_builder_1.SupportedBuilders))
     .default(application_builder_1.SupportedBuilders.ESBUILD));

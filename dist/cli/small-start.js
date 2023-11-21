@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const commander_1 = require("commander");
-const cmd_1 = require("./_lib/cmd");
-const config_1 = require("./_lib/config");
+//import { DockerComposeCmd, DockerNetworkCreateBridgeCmd, SamLocalStartApiCmd } from './_lib/cmd';
+//import { loadConfig } from './_lib/config';
 const program = new commander_1.Command();
 program.name('start');
 program.description('');
@@ -13,20 +13,20 @@ program.addOption(new commander_1.Option('-d, --db-tpl <path>', 'The database Do
 program.parse(process.argv);
 const args = program.opts();
 const main = async () => {
-    const config = await (0, config_1.loadConfig)();
-    const samTpl = args.samTpl ?? config.samOutput ? `${config.samOutput}/template.yaml` : '.aws-sam/template.yaml';
-    const dbTpl = args.dbTpl ?? (config.dockerOutput ? `${config.dockerOutput}/` : './') + 'rds-docker.yaml';
-    await new cmd_1.DockerNetworkCreateBridgeCmd({ verbose: args.verbose ?? false }).exec(['samlocal']);
-    await new cmd_1.DockerComposeCmd({ verbose: args.verbose ?? false }).exec(['-f', dbTpl, 'up', '--build', '--detach']);
-    await new cmd_1.SamLocalStartApiCmd({ verbose: args.verbose ?? false }).exec([
-        '--template',
-        samTpl,
-        '--port',
-        '3000',
-        '--container-host-interface',
-        '0.0.0.0',
-        '--docker-network',
-        'samlocal',
-    ]);
+    // const config = await loadConfig();
+    // const samTpl = args.samTpl ?? config.samOutput ? `${config.samOutput}/template.yaml` : '.aws-sam/template.yaml';
+    // const dbTpl = args.dbTpl ?? (config.dockerOutput ? `${config.dockerOutput}/` : './') + 'rds-docker.yaml';
+    // await new DockerNetworkCreateBridgeCmd({ verbose: args.verbose ?? false }).exec(['samlocal']);
+    // await new DockerComposeCmd({ verbose: args.verbose ?? false }).exec(['-f', dbTpl, 'up', '--build', '--detach']);
+    // await new SamLocalStartApiCmd({ verbose: args.verbose ?? false }).exec([
+    //     '--template',
+    //     samTpl,
+    //     '--port',
+    //     '3000',
+    //     '--container-host-interface',
+    //     '0.0.0.0',
+    //     '--docker-network',
+    //     'samlocal',
+    // ]);
 };
 main();

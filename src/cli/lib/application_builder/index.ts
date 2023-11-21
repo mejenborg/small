@@ -16,9 +16,8 @@ import { ApplicationBuilderOpts, SupportedBuilders } from './interfaces';
 export * from './interfaces';
 
 export const defaultBuildOpts: Partial<ApplicationBuilderOpts> = {
-    samOutput: '.small/aws-sam',
-    cdkOutput: '.small/cdk.out',
-    dockerOutput: '.small',
+    samOutput: '.small/sam-output',
+    cdkOutput: '.small/cdk-output',
     builder: SupportedBuilders.ESBUILD,
 };
 
@@ -30,7 +29,6 @@ export default class ApplicationBuilder {
     template?: string;
     samOutput?: string;
     cdkOutput?: string;
-    dockerOutput?: string;
     builder: SupportedBuilders;
     parallel?: boolean;
 
@@ -55,7 +53,6 @@ export default class ApplicationBuilder {
         this.template = opts.template;
         this.samOutput = opts.samOutput;
         this.cdkOutput = opts.cdkOutput;
-        this.dockerOutput = opts.dockerOutput;
         this.builder = opts.builder;
         this.parallel = opts.parallel;
     }
@@ -66,8 +63,10 @@ export default class ApplicationBuilder {
         if (!stacks) throw new Error('No stacks found to build');
 
         if (this.parallel) {
+            this.logger.debug('Building stacks in parallel');
             await Promise.all(stacks.map((stack) => this.buildStack(stack)));
         } else {
+            this.logger.debug('Building stacks sequentially');
             for (const stack of stacks) {
                 await this.buildStack(stack);
             }
@@ -84,7 +83,7 @@ export default class ApplicationBuilder {
 
         let builder = this.getBuilder();
 
-        await builder.build(templateFile, this.samOutput!);
+        await builder.build(templateFile, this.samOutput!, { parallel: this.parallel });
     }
 
     getBuilder(): Builder {

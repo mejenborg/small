@@ -44,7 +44,7 @@ command.addOption(
 );
 command.addOption(
     new Option(
-        '-l, --handlers <paths...>',
+        '-H, --handlers <paths...>',
         'Filenames or patterns to locate handlers. These filenames are resolved relative to the directory containing the small.config file. This option cannot be used with --template',
     ),
 );
@@ -58,21 +58,15 @@ command.addOption(
 );
 command.addOption(
     new Option(
-        '-so, --sam-output <dir>',
+        '-s, --sam-output <dir>',
         'Directory to store build SAM artifacts. Note: This directory will be removed before starting a build.',
     ).default(defaultBuildOpts.samOutput),
 );
 command.addOption(
     new Option(
-        '-co, --cdk-output <dir>',
+        '-c, --cdk-output <dir>',
         'Directory to store CDK synth artifacts. Note: This directory will be removed before starting a build.',
     ).default(defaultBuildOpts.cdkOutput),
-);
-command.addOption(
-    new Option(
-        '-do, --docker-output <dir>',
-        'Directory to store Docker template artifacts. Note: This directory will be removed before starting a build.',
-    ).default(defaultBuildOpts.dockerOutput),
 );
 command.addOption(
     new Option('-b, --builder <builder>', 'Specify which builder to use')
